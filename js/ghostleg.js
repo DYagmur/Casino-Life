@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var widthNode =  2;
     var heightNode = 4 +1;
+    var startPoint = '';
     var ladderWidth = 560;
     var ladderHeigth = 390;
     var LADDER = {};
@@ -9,7 +10,36 @@ $(document).ready(function() {
     var GLOBAL_FOOT_PRINT= {};  
     var GLOBAL_CHECK_FOOT_PRINT= {};
     var working = false;
-    init();
+    const SETTIME = 2000;
+    init(); 
+    $.ajax({
+        url:"http://localhost:3000/ghostleg",
+        type: 'GET',
+        header: {
+            "task" : "ghostleg"
+        },
+        success: function(response) {
+            heightNode = response.heightNode;
+            startPoint = response.startPoint;
+            console.log(heightNode,startPoint);
+            init(); 
+        },
+        error: function(error) {
+            console.log("Error: ",error);
+        }
+    })
+
+    function resetPage(){
+        console.log('start reset');
+        setTimeout(function(){
+            location.reload()},5000); 
+    }
+    function autoClick() {
+        setTimeout(function(){
+            document.getElementById('leftStart').click();
+            resetPage();
+        },SETTIME);
+    }
 
     function init() {
         canvasDraw();
@@ -33,7 +63,6 @@ $(document).ready(function() {
         drawNodeLine();
         userSetting();
         resultSetting();
-        
     }
 
     $(document).on('click', 'button.ladder-start', function(e){
@@ -230,11 +259,9 @@ $(document).ready(function() {
     function userSetting(){
         var userList = LADDER[0];
         var html = '';
-        html += '<div class="user-wrap" style="left:-35"><button class="ladder-start" style="background-color:#fff capacity:0.1" data-color="black" data-node="'+userList[0]+'">Left</button>';
-        html +='</div>'
-        html += '<div class="user-wrap" style="left:495"><button class="ladder-start" style="background-color:#fff capacity:0.1" data-color="black" data-node="'+userList[1]+'">Right</button>';
-        html +='</div>'
-        ladder.append(html);
+        $('#leftStart').attr('data-node',userList[0]);
+        $('#rightStart').attr('data-node',userList[1]);
+        autoClick();
     }
 
     function resultSetting(){
@@ -248,9 +275,9 @@ $(document).ready(function() {
         var x2 = resultList[1].split('-')[0]*1;
         var y2 = resultList[1].split('-')[1]*1 + 1;
         var node2 = x2 + "-" + y2;
-        html += '<div class="answer-wrap" style="left:-35"><button class="ladder-start" data-color="red" data-node="'+node1+'"></button>';
+        html += '<div class="answer-wrap" style="left:-35"><button class="ladder-start" data-color="red" data-node="'+node1+'">ODD</button>';
         html +='</div>'
-        html += '<div class="answer-wrap" style="left:495"><button class="ladder-start" data-color="blue" data-node="'+node2+'"></button>';
+        html += '<div class="answer-wrap" style="left:495"><button class="ladder-start" data-color="blue" data-node="'+node2+'">EVEN</button>';
         html +='</div>'
         ladder.append(html);
    }

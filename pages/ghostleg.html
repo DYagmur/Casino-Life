@@ -6,21 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link rel="import" href="http://www.polymer-project.org/components/paper-ripple/paper-ripple.html">
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <link rel="stylesheet" type="text/css" href="../css/meterial.css">
+    
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="ladder" class="ladder">
+        <div class="user-wrap" style="left:-35">
+            <button id="leftStart" class="ladder-start" style="background-color:#fff capacity = 0.1" data-color="black">Left</button>
+        </div>
+        <div class="user-wrap" style="left:495">
+            <button id="rightStart" class="ladder-start" style="background-color:#fff capacity = 0.1" data-color="black" >Right</button>
+        </div>
         <canvas class="ladder_canvas" id="ladder_canvas"></canvas>
         <div id="choiceBox" class="choiceBox">
         <div id="startPoint">
-            <p>START POINT</p>
+            <p>START-POINT</p>
+                <input id="leftStart" type="radio" name="startPoint" value="left">
+                <label for="leftStart">Left</label>
+                <input id="rightStart" type="radio" name="startPoint" value="right">
+                <label for="rightStart">Right</label>
         </div>
         <div id="ladderCount">
-            <p>LADDER COUNT</p>
+            <p>LADDER-COUNT</p>
+            <input id="three" type="radio" name="ladderCount" value="three">
+            <label for="three">Three</label>
+            <input id="four" type="radio" name="ladderCount" value="four">
+            <label for="four">Four</label>
         </div>
         <div id="odd-even">
             <p>ODD-EVEN</p>
+            <input id="odd" type="radio" name="odd-even" value="odd">
+            <label for="odd">ODD</label>
+            <input id="even" type="radio" name="odd-even" value="even">
+            <label for="even">EVEN</label>
         </div>
     </div>
     </div>
