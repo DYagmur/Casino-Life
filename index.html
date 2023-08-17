@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="styles.css" />
-        <script
-            src="https://code.jquery.com/jquery-3.7.0.min.js"
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-            crossorigin="anonymous"
-        ></script>
-        <title>Roulette</title>
-    </head>
-    <body>
-        <div class="roulette">
-            <button class="spin">Spin</button>
-            <div class="arrow">
-                <img src="https://i.imgur.com/k6g31Sg.png" />
-            </div>
-            <div class="wheel">
-                <img src="https://i.imgur.com/N2W3N0S.png" />
-            </div>
+            crossorigin="anonymous"></script>
+    <title>Roulette and Dice Game</title>
+</head>
+<body>
+    <div class="roulette">
+        <button class="spin">Spin</button>
+        <div class="arrow">
+            <img src="https://i.imgur.com/k6g31Sg.png" />
         </div>
-        <script src="main.js"></script>
-    </body>
+        <div class="wheel">
+            <img src="https://i.imgur.com/N2W3N0S.png" />
+        </div>
+    </div>
+    <div class="container">
+        <h2>Dice Game</h2>
+        <h1>Let's Begin</h1>
+
+        <div class="dice">
+          <p class="Player1">Player 1</p>
+          <img class="img1" src="images/dice6.png">
+        </div>
+
+        <div class="dice">
+          <p class="Player2">Player 2</p>
+          <img class="img2" src="images/dice6.png">
+        </div>
+    </div>
+    <div class="container bottom">
+        <button type="button" class="butn" id="dice-btn">
+          Roll the Dice
+        </button>
+    </div>
+    <div class="container bottom">
+        <button type="button" class="butn" id="editNamesBtn">
+          Edit Names
+        </button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
 </html>
