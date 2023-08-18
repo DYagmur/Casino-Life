@@ -1,7 +1,9 @@
 $(document).ready(function() {
     var widthNode =  2;
-    var heightNode = 4 +1;
-    var startPoint = '';
+    var heightNode = Math.round(Math.random() * (5 - 4 * 1)) + 4;
+    var startPoint = Math.round(Math.random());
+    console.log('heightNode: ',heightNode);
+    console.log('startPoint: ',startPoint);
     var ladderWidth = 560;
     var ladderHeigth = 390;
     var LADDER = {};
@@ -10,33 +12,21 @@ $(document).ready(function() {
     var GLOBAL_FOOT_PRINT= {};  
     var GLOBAL_CHECK_FOOT_PRINT= {};
     var working = false;
-    const SETTIME = 2000;
-    init(); 
-    $.ajax({
-        url:"http://localhost:3000/ghostleg",
-        type: 'GET',
-        header: {
-            "task" : "ghostleg"
-        },
-        success: function(response) {
-            heightNode = response.heightNode;
-            startPoint = response.startPoint;
-            console.log(heightNode,startPoint);
-            init(); 
-        },
-        error: function(error) {
-            console.log("Error: ",error);
-        }
-    })
-
+    const SETTIME = 5000;
+    init();
     function resetPage(){
-        console.log('start reset');
+        //console.log('start reset');
         setTimeout(function(){
             location.reload()},5000); 
     }
     function autoClick() {
         setTimeout(function(){
-            document.getElementById('leftStart').click();
+            $('#protector').css({'display':'none'});
+            if (startPoint == 0) {
+                document.getElementById('leftStart').click();
+            }else{
+                document.getElementById('rightStart').click();
+            }
             resetPage();
         },SETTIME);
     }
@@ -95,9 +85,7 @@ $(document).ready(function() {
         
         if(y ==heightNode ){
             reSetCheckFootPrint();
-            console.log(node);
             var target = $('button[data-node="'+node+'"]');
-            console.log(target);
             target.css({
                 'background-color' : target.attr('data-color')
             })
@@ -112,16 +100,16 @@ $(document).ready(function() {
             var rightNodeInfo = GLOBAL_FOOT_PRINT[rightNode];
             if(!!!GLOBAL_FOOT_PRINT.hasOwnProperty(leftNode) && GLOBAL_FOOT_PRINT.hasOwnProperty(rightNode)){      
                 /// 좌측라인
-                console.log('좌측라인')
+                //console.log('좌측라인')
                 if(  (rightNodeInfo["change"] && !!!rightNodeInfo["draw"] ) && !!!GLOBAL_CHECK_FOOT_PRINT[rightNode] ){
                     //Right우선 
-                    console.log("RIGHT 우선");
+                    //console.log("RIGHT 우선");
                     stokeLine(x, y, 'w' , 'r' , color ,30)
                     setTimeout(function(){ 
                         return startLineDrawing(rightNode, color)
                     }, 100);
                 }else{
-                    console.log('DOWN')
+                    //console.log('DOWN')
                     stokeLine(x, y, 'h' , 'd' , color ,30)
                     setTimeout(function(){ 
                         return startLineDrawing(downNode, color)
@@ -130,16 +118,16 @@ $(document).ready(function() {
                 
             }else if(GLOBAL_FOOT_PRINT.hasOwnProperty(leftNode) && !!!GLOBAL_FOOT_PRINT.hasOwnProperty(rightNode)){      
                 /// 우측라인
-                console.log('우측라인')
+                //console.log('우측라인')
                 if(  (leftNodeInfo["change"] && leftNodeInfo["draw"] ) && !!!GLOBAL_CHECK_FOOT_PRINT[leftNode] ){
                     //Right우선 
-                    console.log("LEFT 우선");
+                    //console.log("LEFT 우선");
                     stokeLine(x, y, 'w' , 'l' , color ,30)
                     setTimeout(function(){ 
                         return startLineDrawing(leftNode, color)
                     }, 100);
                 }else{
-                    console.log('DOWN')
+                    //console.log('DOWN')
                     stokeLine(x, y, 'h' , 'd' , color ,30)
                     setTimeout(function(){ 
                         return startLineDrawing(downNode, color)
@@ -147,9 +135,9 @@ $(document).ready(function() {
                 }
             }
         }else{
-            console.log("down")
+            //console.log("down")
             var downNode = x +"-"+ (y + 1);
-            console.log(downNode);
+           // console.log(downNode);
             stokeLine(x, y, 'h' , 'd' , color ,30)
             setTimeout(function(){ 
                 return startLineDrawing(downNode, color)
@@ -239,7 +227,7 @@ $(document).ready(function() {
                 GLOBAL_FOOT_PRINT[loopNode] = {"change" : true, "draw" : false};
             }
         }
-        console.log(GLOBAL_FOOT_PRINT);
+        //(GLOBAL_FOOT_PRINT);
     }
 
     function setDefaultRowLine(){
@@ -253,7 +241,7 @@ $(document).ready(function() {
              LADDER[row] =  rowArr;
              row++;
         }
-        console.log("LADDER:",LADDER)
+        //console.log("LADDER:",LADDER)
     }
 
     function userSetting(){
@@ -266,7 +254,7 @@ $(document).ready(function() {
 
     function resultSetting(){
         var resultList = LADDER[heightNode-1];
-        console.log("resultList: ",resultList )
+        //console.log("resultList: ",resultList )
 
         var html = '';
         var x1 = resultList[0].split('-')[0]*1;

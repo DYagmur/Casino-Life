@@ -134,6 +134,18 @@ html, body{
     cursor: pointer;
     outline: 0;
 }
+
+#protector {
+    position: absolute;
+    top: 420px;
+    left: 470px;
+    width: 800px;
+    height:350px;
+    background-color: beige;
+    font-size: 50px;
+    text-align: center;
+}
+
 .answer-wrap{
         width: 100px;
         position: absolute;
