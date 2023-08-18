@@ -2,8 +2,7 @@ $(document).ready(function() {
     var widthNode =  2;
     var heightNode = Math.round(Math.random() * (5 - 4 * 1)) + 4;
     var startPoint = Math.round(Math.random());
-    console.log('heightNode: ',heightNode);
-    console.log('startPoint: ',startPoint);
+    
     var ladderWidth = 560;
     var ladderHeigth = 390;
     var LADDER = {};
@@ -14,6 +13,8 @@ $(document).ready(function() {
     var working = false;
     const SETTIME = 5000;
     init();
+
+
     function resetPage(){
         //console.log('start reset');
         setTimeout(function(){
@@ -22,12 +23,28 @@ $(document).ready(function() {
     function autoClick() {
         setTimeout(function(){
             $('#protector').css({'display':'none'});
+            $.ajax({
+                url: "http://localhost:3000/ghostleg",
+                type: 'GET',
+                headers: {
+                    "task": "ghostleg" // custom header
+                },
+                success: function(response) {
+                    // if a success response is received, print it here:
+                    console.log("Response:", response);
+                    console.log('heightNode: ', response.heightNode);
+                    console.log('startPoint: ', response.startPoint);
+                },
+                error: function(error) {
+                    console.error("Error:", error);
+                }
+            });
             if (startPoint == 0) {
                 document.getElementById('leftStart').click();
             }else{
                 document.getElementById('rightStart').click();
             }
-            resetPage();
+            //resetPage();
         },SETTIME);
     }
 
