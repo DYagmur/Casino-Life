@@ -1,19 +1,46 @@
 $(document).ready(function() {
     let currentPosition = -4.86;
-    let player1; // Değişkenleri tanımladık, fakat henüz değer atamadık
-    let player2;
+    let player1 = "Player 1";
+    let player2 = "Player 2";
 
     $(".spin").click(function() {
-        // Roulette spin mantığını burada işleyin
-        // Tekerlek dönüşünü güncelleyin ve sonucu görüntüleyin
+        console.log("hello");
+        $.ajax({
+            url: "http://localhost:3000",
+            type: "GET",
+            headers: {
+                task: "spin",
+            },
+            data: {
+                user: "Alice",
+            },
+            success: function(response) {
+                console.log(response);
+                currentPosition += 1080 + response.getSpin;
+                $('.wheel img').css('transform', 'rotate(-' + currentPosition + 'deg)');
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            },
+        });
     });
 
     function editNames() {
-        player1 = prompt("Change Player1 name"); // Değerleri burada atıyoruz
-        player2 = prompt("Change player2 name");
+        player1 = prompt("Change Player 1 name") || player1;
+        player2 = prompt("Change Player 2 name") || player2;
 
         $("p.Player1").html(player1);
         $("p.Player2").html(player2);
+    }
+
+    function calculateWinner(dice1, dice2) {
+        if (dice1 === dice2) {
+            return "draw";
+        } else if (dice1 > dice2) {
+            return "player1";
+        } else {
+            return "player2";
+        }
     }
 
     function rollTheDice() {
